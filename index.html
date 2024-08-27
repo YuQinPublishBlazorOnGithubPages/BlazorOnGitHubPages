@@ -1,3 +1,41 @@
+<!--
+wwwroot folder: The Web Root folder for the app containing the app's public static assets, including appsettings.json and environmental app settings files for configuration settings and sample weather data (sample-data/weather.json).
+-->
+<!--
+When any page of the app is initially requested, this page is rendered and returned in the response.
+The page specifies where the root App component is rendered. The component is rendered at the location of the div DOM element with an id of app (<div id="app">Loading...</div>).
+-->
+<!--
+ static files
+For the location of <head> content where static file links are placed, see ASP.NET Core Blazor project structure. Static asset links can also be supplied using <HeadContent> components in individual Razor components.
+    By default, publishing the app places the app's static assets, including Blazor framework files (_framework folder assets), at the root path (/) in published output. The <StaticWebAssetBasePath> property specified in the project file (.csproj) sets the base path to a non-root path:
+
+XML
+
+Copy
+<PropertyGroup>
+  <StaticWebAssetBasePath>{PATH}</StaticWebAssetBasePath>
+</PropertyGroup>
+In the preceding example, the {PATH} placeholder is the path.
+
+Without setting the <StaticWebAssetBasePath> property, a standalone app is published at /BlazorStandaloneSample/bin/Release/{TFM}/publish/wwwroot/.
+
+In the preceding example, the {TFM} placeholder is the Target Framework Moniker (TFM) (for example, net6.0).
+
+If the <StaticWebAssetBasePath> property in a standalone Blazor WebAssembly app sets the published static asset path to app1, the root path to the app in published output is /app1.
+
+In the standalone Blazor WebAssembly app's project file (.csproj):
+
+XML
+
+Copy
+<PropertyGroup>
+  <StaticWebAssetBasePath>app1</StaticWebAssetBasePath>
+</PropertyGroup>
+In published output, the path to the standalone Blazor WebAssembly app is /BlazorStandaloneSample/bin/Release/{TFM}/publish/wwwroot/app1/.
+
+In the preceding example, the {TFM} placeholder is the Target Framework Moniker (TFM) (for example, net6.0).
+-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,8 +88,12 @@
 
 <body>
     <div>
+        下述是.html/.svg/.x3d/.css/.js文件的视图V，将不断尝试改写成为.html/.svg/.x3d/.css/.js/.razor.cs文件的视图V。
+    </div>
+    <div>
         <iframe src="https://jbhuang99.github.io/WebEdu_LocalVersion_YuQin_DotNetCore2.1/ASPDotNet_MVC_YuQin/wwwroot/webCourse/common/iframeInitial.html?iWidth=1024&iHeight=738" width="100%" height="768" align="middle"></iframe>
     </div>
+    <!--承接Blazor WebAssembly的.dll文件入口文件program.cs中的如下代码：builder.RootComponents.Add<App>("#app")-->
     <div id="app">
         <svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />
@@ -67,7 +109,9 @@
     </div>
     <script src="decode.js"></script>
     <script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
+    <!--加载Blazor WebAssembly的.dll文件。一旦Blazor WebAssembly代码加载完成，就会运行入口文件program.cs中的如下代码：builder.RootComponents.Add<App>("#app");告诉Renderer，App类组件是RenderTree的根组件，并将它的DOM加载到浏览器DOM中的App元素（Id为App的元素）-->
     <script src="_framework/blazor.webassembly.js"></script>
+    <!--加载PWA相关的环境-->
     <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script>
         Blazor.start({
